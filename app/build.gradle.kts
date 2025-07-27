@@ -1,10 +1,7 @@
-import androidx.glance.appwidget.compose
-
 plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-    alias(libs.plugins.kotlin.compose)
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.21"
     id("dagger.hilt.android.plugin")
 }
