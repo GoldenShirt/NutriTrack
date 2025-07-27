@@ -1,7 +1,10 @@
+import androidx.glance.appwidget.compose
+
 plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    alias(libs.plugins.kotlin.compose)
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.21"
     id("dagger.hilt.android.plugin")
 }
@@ -17,7 +20,10 @@ android {
         versionName = "1.0"
     }
     kotlinOptions {
-        jvmTarget = "17" // Match this with your Java version
+        jvmTarget = "1.8" // Match this with your Java version
+    }
+    kotlin {
+        jvmToolchain(17) // Specify the JDK version you want to use
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8 // Or your desired Java version

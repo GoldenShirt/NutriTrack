@@ -4,9 +4,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <service
-        android:name=".voice.VoiceInputService"
-        android:exported="false"/>
     <application
         android:name=".NutriTrackApp"
         android:allowBackup="true"
