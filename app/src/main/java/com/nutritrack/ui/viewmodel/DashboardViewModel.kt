@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nutritrack.data.repository.MealRepository
 import com.nutritrack.data.local.MealEntity
+import com.nutritrack.data.local.nutrition
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -40,10 +41,12 @@ class DashboardViewModel @Inject constructor(
 
             val meals = mealRepository.getMealsBetween(startOfDay, endOfDay)
 
-            val totalCalories = meals.sumOf { it.nutrition?.calories ?: 0 }
-            val totalProtein = meals.sumOf { it.nutrition?.protein ?: 0 }
-            val totalCarbs = meals.sumOf { it.nutrition?.carbs ?: 0 }
-            val totalFats = meals.sumOf { it.nutrition?.fats ?: 0 }
+            // Explicitly ensure the lambda returns an Int
+            val totalCalories = meals.sumOf { (it.nutrition?.calories ?: 0).toInt() }
+            val totalProtein = meals.sumOf { (it.nutrition?.protein ?: 0).toInt() }
+            val totalCarbs = meals.sumOf { (it.nutrition?.carbs ?: 0).toInt() }
+            val totalFats = meals.sumOf { (it.nutrition?.fats ?: 0).toInt() }
+
 
             _uiState.value = DashboardUiState(
                 calories = totalCalories,

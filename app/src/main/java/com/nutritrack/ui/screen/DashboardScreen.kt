@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.nutritrack.data.local.nutrition
 import com.nutritrack.ui.viewmodel.DashboardViewModel
 import com.nutritrack.ui.viewmodel.MealInputViewModel
 import java.time.LocalDate
@@ -25,6 +26,7 @@ fun DashboardScreen(
 ) {
     val dashState by dashboardViewModel.uiState.collectAsState()
     val inputState by mealInputViewModel.uiState.collectAsState()
+
     var mealText by remember { mutableStateOf("") }
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
@@ -50,23 +52,23 @@ fun DashboardScreen(
 
         // Nutrition Summary
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            MacroCard("קלוריות", dashState.calories)
-            MacroCard("חלבון", dashState.protein)
-            MacroCard("פחמימות", dashState.carbs)
-            MacroCard("שומנים", dashState.fats)
+            MacroCard("Calories", dashState.calories)
+            MacroCard("Protein", dashState.protein)
+            MacroCard("Carbs", dashState.carbs)
+            MacroCard("Fats", dashState.fats)
         }
 
         Spacer(Modifier.height(24.dp))
 
         // Inline Meal Input Section
-        Text("הוסף ארוחה", style = MaterialTheme.typography.titleMedium)
+        Text("Add Meal", style = MaterialTheme.typography.titleMedium)
         OutlinedTextField(
             value = inputState.recognizedText.takeIf { it.isNotBlank() } ?: mealText,
             onValueChange = {
                 mealText = it
             },
             modifier = Modifier.fillMaxWidth(),
-            placeholder = { Text("תאר את הארוחה...") }
+            placeholder = { Text("Enter your meal...") }
         )
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(
@@ -94,7 +96,7 @@ fun DashboardScreen(
                 enabled = !inputState.isProcessing
             ) {
                 if (inputState.isProcessing) CircularProgressIndicator(Modifier.size(16.dp))
-                else Text("הוסף")
+                else Text("Save")
             }
         }
         inputState.error?.let {
@@ -104,10 +106,9 @@ fun DashboardScreen(
         Spacer(Modifier.height(16.dp))
 
         // List Meals for Selected Day
-        Text("ארוחות ליום זה", style = MaterialTheme.typography.titleMedium)
-        // Assuming dashState.meals is available
+        Text("Meals for this day", style = MaterialTheme.typography.titleMedium)
         if (dashState.meals.isNullOrEmpty()) {
-            Text("אין ארוחות ליום זה.", style = MaterialTheme.typography.bodyMedium)
+            Text("No meals for this day.", style = MaterialTheme.typography.bodyMedium)
         } else {
             Column {
                 dashState.meals.forEach { meal ->
@@ -115,7 +116,10 @@ fun DashboardScreen(
                         Column(modifier = Modifier.padding(8.dp)) {
                             Text(meal.description, style = MaterialTheme.typography.bodyLarge)
                             meal.nutrition?.let {
-                                Text("קלוריות: ${it.calories}, חלבון: ${it.protein}, פחמימות: ${it.carbs}, שומנים: ${it.fats}", style = MaterialTheme.typography.bodySmall)
+                                Text(
+                                    "Calories: ${it.calories}, Protein: ${it.protein}, Carbs: ${it.carbs}, Fats: ${it.fats}",
+                                    style = MaterialTheme.typography.bodySmall
+                                )
                             }
                         }
                     }
@@ -125,7 +129,7 @@ fun DashboardScreen(
 
         Spacer(Modifier.height(16.dp))
         Button(onClick = onChat, modifier = Modifier.align(Alignment.End)) {
-            Text("צ'אט עם העוזר")
+            Text("Chat with Advisor")
         }
     }
 }
