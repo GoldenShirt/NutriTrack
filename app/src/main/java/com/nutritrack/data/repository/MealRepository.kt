@@ -47,4 +47,9 @@ class MealRepository @Inject constructor(
         calendar.set(java.util.Calendar.MILLISECOND, 0)
         return calendar.timeInMillis
     }
+
+    // Add this function:
+    suspend fun getMealsBetween(startMillis: Long, endMillis: Long): List<MealEntity> {
+        return mealDao.getMealsBetween(startMillis, endMillis)
+    }
 }

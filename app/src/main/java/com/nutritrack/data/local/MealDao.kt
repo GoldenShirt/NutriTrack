@@ -12,4 +12,8 @@ interface MealDao {
 
     @Query("SELECT * FROM meals WHERE timestamp >= :from")
     suspend fun getMealsSince(from: Long): List<MealEntity>
+
+    // Add this function:
+    @Query("SELECT * FROM meals WHERE timestamp >= :startMillis AND timestamp < :endMillis")
+    suspend fun getMealsBetween(startMillis: Long, endMillis: Long): List<MealEntity>
 }
