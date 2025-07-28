@@ -7,8 +7,20 @@ import com.nutritrack.data.repository.MealRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+sealed class ChatMsg {
+    data class User(val text: String) : ChatMsg()
+    data class Bot(val text: String) : ChatMsg()
+}
+
+data class ChatUiState(
+    val messages: List<ChatMsg> = emptyList(),
+    val isLoading: Boolean = false
+)
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
@@ -34,7 +46,4 @@ class ChatViewModel @Inject constructor(
             mealRepo.logMeal(text)
         }
     }
-}
-
-class ChatViewModel {
 }

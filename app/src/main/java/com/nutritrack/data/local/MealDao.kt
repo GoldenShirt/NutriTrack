@@ -5,14 +5,11 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
-class MealDao {
-    @Dao
-    interface MealDao {
-        @Insert(onConflict = OnConflictStrategy.REPLACE)
-        suspend fun insert(meal: MealEntity)
+@Dao
+interface MealDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(meal: MealEntity)
 
-        @Query("SELECT * FROM meals WHERE timestamp >= :from")
-        suspend fun getMealsSince(from: Long): List<MealEntity>
-    }
-
+    @Query("SELECT * FROM meals WHERE timestamp >= :from")
+    suspend fun getMealsSince(from: Long): List<MealEntity>
 }
