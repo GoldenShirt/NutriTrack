@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">NutriTrack</string>
+    <string name="daily_intake">צריכה יומית</string>
+    <string name="calories">קלוריות</string>
+    <string name="protein">חלבון</string>
+    <string name="carbs">פחמימות</string>
+    <string name="fats">שומנים</string>
+    <string name="chat_with_assistant">צ\'אט עם העוזר</string>
+    <string name="type_message">Type a message...</string>
+    <string name="send">Send</string>
+    <string name="log_meal">רשום ארוחה</string>
+    <string name="voice_input">קלט קולי</string>
+    <string name="meal_description">תיאור הארוחה</string>
+    <string name="save">שמור</string>
+    <string name="cancel">ביטול</string>
+    <string name="permission_microphone_denied">Permission to use microphone was denied</string>
+    <string name="voice_listening">מאזין...</string>
+    <string name="voice_error">שגיאה בזיהוי קול</string>
 </resources>

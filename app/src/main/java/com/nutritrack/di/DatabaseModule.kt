@@ -1,6 +1,7 @@
 package com.nutritrack.di
 
 import android.content.Context
+import com.nutritrack.BuildConfig
 import com.nutritrack.data.local.AppDatabase
 import com.nutritrack.data.local.MealDao
 import com.nutritrack.ai.GPTManager
@@ -29,7 +30,6 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideGPTManager(mealDao: MealDao): GPTManager {
-        // Replace with your actual OpenAI API key
-        return GPTManager("your-openai-api-key-here", mealDao)
+        return GPTManager(BuildConfig.OPENAI_API_KEY, mealDao)
     }
 }
